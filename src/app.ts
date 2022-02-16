@@ -5,6 +5,8 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
+import { jokesRouter } from './routes/jokes.routes';
+import { loginRouter } from './routes/login.routes';
 import { userRouter } from './routes/users.routes';
 
 const app: express.Application = express();
@@ -15,13 +17,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/', (_, res: express.Response) => res.send('Hello World!'));
+app.use('/jokes', jokesRouter);
+app.use('/login', loginRouter);
 app.use('/users', userRouter);
 
 // catch 404 and forward to error handler
 app.use(
   (
-    req: express.Request,
-    res: express.Response,
+    _: express.Request,
+    __: express.Response,
     next: express.NextFunction,
   ): void => {
     next(createError(404));
