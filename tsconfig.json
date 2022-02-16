@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "allowJs": true,
+    "target": "es6",
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "module": "CommonJS",
+    "resolveJsonModule": true
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["**/*.spec.ts", "node_modules"]
+}

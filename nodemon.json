@@ -1,0 +1,9 @@
+{
+  "ignore": ["*.test.js", "dist/*"],
+  "watch": ["src"],
+  "ext": "ts, js, json",
+  "verbose": true,
+  "execMap": {
+    "ts": "ts-node"
+  }
+}
