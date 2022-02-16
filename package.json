@@ -10,7 +10,15 @@
     "start:dev": "nodemon ./src/bin/server",
     "build": "tsc",
     "lint:fix": "eslint src/ --ext .ts --fix",
-    "lint": "eslint src/ --ext .ts"
+    "lint": "eslint src/ --ext .ts",
+    "seq:bootstrap": "npx sequelize-cli init",
+    "seq:model": "npx sequelize-cli model:generate",
+    "seq:migrate": "npx sequelize-cli db:migrate",
+    "seq:migrate:undo": "npx sequelize-cli db:migrate:undo",
+    "seq:migration:skeleton": "npx sequelize-cli migration:generate --name migration-skeleton",
+    "seq:seed": "npx sequelize-cli db:seed:all",
+    "seq:seed:undo": "npx sequelize-cli db:seed:undo",
+    "seq:seed:skeleton": "npx sequelize-cli seed:generate --name demo-user"
   },
   "repository": {
     "type": "git",
@@ -29,9 +37,11 @@
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^16.0.0",
     "express": "4.16.4",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "sequelize": "^6.16.1"
   },
   "devDependencies": {
     "@profi.co/eslint-plugin": "^1.0.6",
