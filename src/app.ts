@@ -5,20 +5,23 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
+import userService from './services/userService';
+
 import { jokesRouter } from './routes/jokes.routes';
 import { loginRouter } from './routes/login.routes';
 import { userRouter } from './routes/users.routes';
 import { sequelizeConfig } from './config/seq-config';
-import { Users } from './models';
 
 // const test = new Tests({ username: 'Filip', password: 'Ivic' });
 // test.save();
 
 sequelizeConfig();
 
-Users.findAll({ raw: true }).then(tests => {
-  console.log(tests);
-});
+userService.getUsers().then(users => console.log(users));
+
+// Users.findAll({ raw: true }).then(tests => {
+//   console.log(tests);
+// });
 
 const app: express.Application = express();
 
