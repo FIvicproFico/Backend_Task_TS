@@ -1,4 +1,3 @@
-// Must be JS.
 require('dotenv').config();
 
 module.exports = {

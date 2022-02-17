@@ -20,6 +20,7 @@ router.post('/', (req: express.Request, res: express.Response): void => {
   const { username, email, password }: IUser = req.body;
   const env: string = process.env.DB_USERNAME;
   res.json({ username, email, password, env });
+  // db[0].findAll().then(test => console.log(test));
 });
 
 export { router as loginRouter };

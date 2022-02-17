@@ -2,13 +2,12 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "allowJs": true,
-    "target": "es6",
-    "noImplicitAny": true,
-    "moduleResolution": "node",
     "esModuleInterop": true,
+    "experimentalDecorators": true,
     "module": "CommonJS",
-    "resolveJsonModule": true
+    "skipLibCheck": true,
+    "target": "es6", // or a more recent ecmascript version
+    "emitDecoratorMetadata": true
   },
   "include": ["./src/**/*"],
   "exclude": ["**/*.spec.ts", "node_modules"]
