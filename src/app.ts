@@ -4,29 +4,17 @@ import createError from 'http-errors';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import dotenv from 'dotenv';
-
-import { Sequelize } from 'sequelize-typescript';
 
 import { jokesRouter } from './routes/jokes.routes';
 import { loginRouter } from './routes/login.routes';
 import { userRouter } from './routes/users.routes';
+import { sequelizeConfig } from './config/seq-config';
 import { Tests } from './models';
 
-dotenv.config();
+// const test = new Tests({ username: 'Filip', password: 'Ivic' });
+// test.save();
 
-const sequelize = new Sequelize({
-  database: process.env.DB_NAME,
-  dialect: 'mysql',
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  // eslint-disable-next-line no-path-concat
-});
-
-sequelize.addModels([Tests]);
-
-const test = new Tests({ username: 'Filip', password: 'Ivic' });
-test.save();
+sequelizeConfig();
 
 Tests.findAll({ raw: true }).then(tests => {
   console.log(tests);

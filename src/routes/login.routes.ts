@@ -7,7 +7,7 @@ dotenv.config();
 interface IUser {
   username: string;
   email: number;
-  password: string;
+  password?: string;
 }
 
 /* GET login. */
