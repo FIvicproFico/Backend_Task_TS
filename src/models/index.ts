@@ -1,4 +1,7 @@
 import { Tests } from './test';
+import { Users } from './users';
 
-export default [Tests];
-export { Tests };
+const models = [Tests, Users];
+
+export { Tests, Users };
+export default models;

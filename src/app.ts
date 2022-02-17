@@ -9,14 +9,14 @@ import { jokesRouter } from './routes/jokes.routes';
 import { loginRouter } from './routes/login.routes';
 import { userRouter } from './routes/users.routes';
 import { sequelizeConfig } from './config/seq-config';
-import { Tests } from './models';
+import { Users } from './models';
 
 // const test = new Tests({ username: 'Filip', password: 'Ivic' });
 // test.save();
 
 sequelizeConfig();
 
-Tests.findAll({ raw: true }).then(tests => {
+Users.findAll({ raw: true }).then(tests => {
   console.log(tests);
 });
 

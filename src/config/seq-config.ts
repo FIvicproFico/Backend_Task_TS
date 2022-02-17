@@ -1,8 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 
 import env from './env-config';
-
-import { Tests } from '../models';
+import models from '../models';
 
 export const sequelizeConfig = () => {
   const sequelize = new Sequelize({
@@ -11,6 +10,5 @@ export const sequelizeConfig = () => {
     username: env.dbUsername,
     password: env.dbPassword,
   });
-
-  sequelize.addModels([Tests]);
+  sequelize.addModels(models);
 };
