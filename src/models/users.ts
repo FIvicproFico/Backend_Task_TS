@@ -27,6 +27,9 @@ export class Users extends Model {
   name: string;
 
   @Column(DataType.STRING)
+  surname: string;
+
+  @Column(DataType.STRING)
   email: string;
 
   @Column(DataType.STRING)

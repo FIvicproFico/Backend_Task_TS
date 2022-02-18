@@ -19,6 +19,12 @@ sequelizeConfig();
 
 userService.getUsers().then(users => console.log(users));
 
+userService
+  .getUserByEmail('drol.pilif@gmail.com')
+  .then(user => console.log(user));
+
+userService.getUserByID(25).then(user => console.log(user));
+
 // Users.findAll({ raw: true }).then(tests => {
 //   console.log(tests);
 // });
