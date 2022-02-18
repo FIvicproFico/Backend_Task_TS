@@ -1,13 +1,19 @@
 import express from 'express';
 
+import authenticateJWT from '../middlewares/authentication';
+
 import { asyncRoute } from '../utilities/asyncRoute';
 
 const router = express.Router();
 
 /* GET users listing. */
-router.get('/', (req: express.Request, res: express.Response): void => {
-  res.send('Hello Users!');
-});
+router.get(
+  '/',
+  authenticateJWT,
+  (req: express.Request, res: express.Response): void => {
+    res.send('Hello Users!');
+  },
+);
 
 /* GET Error. */
 router.get(

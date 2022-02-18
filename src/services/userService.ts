@@ -21,7 +21,7 @@ interface IUser {
 
 class UserService {
   // : Promise<Array<IUser>>
-  getUsers = async (): Promise<IUser[]> => {
+  getUsers = async (): Promise<IUser[] | null> => {
     try {
       const users = await Users.findAll({ raw: true });
       return users;
@@ -31,15 +31,15 @@ class UserService {
     }
   };
 
-  getUserByEmail = async (email: string): Promise<IUser> => {
+  getUserByEmail = async (email: string): Promise<IUser | null> => {
     try {
-      const user = await Users.findAll({
+      const user = await Users.findOne({
         where: {
           email,
         },
         raw: true,
       });
-      return user[0];
+      return user;
     } catch (error) {
       console.error(error);
       throw error;
@@ -48,13 +48,13 @@ class UserService {
 
   getUserByID = async (id: number): Promise<IUser> => {
     try {
-      const user = await Users.findAll({
+      const user = await Users.findOne({
         where: {
           id,
         },
         raw: true,
       });
-      return user[0];
+      return user;
     } catch (error) {
       console.error(error);
       throw error;
