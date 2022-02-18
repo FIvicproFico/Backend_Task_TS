@@ -12,9 +12,6 @@ import { loginRouter } from './routes/login.routes';
 import { userRouter } from './routes/users.routes';
 import { sequelizeConfig } from './config/seq-config';
 
-// const test = new Tests({ username: 'Filip', password: 'Ivic' });
-// test.save();
-
 sequelizeConfig();
 
 userService.getUsers().then(users => console.log(users));
@@ -25,9 +22,24 @@ userService
 
 userService.getUserByID(25).then(user => console.log(user));
 
-// Users.findAll({ raw: true }).then(tests => {
-//   console.log(tests);
-// });
+userService
+  .AddNewUser(
+    'xSarahX',
+    'sara123',
+    'Sara',
+    'Ivić',
+    'test10@profico.com',
+    'member',
+  )
+  .then(() => console.log('Added !'))
+  .catch(err => console.log(err));
+
+userService.updateUsername(23, 'Pilip').then(() => console.log('Updated !'));
+
+userService
+  .deleteUser(36)
+  .then(() => console.log('Deleted !'))
+  .catch(err => console.log('Error !'));
 
 const app: express.Application = express();
 
