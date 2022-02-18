@@ -43,14 +43,15 @@ class UserService {
         },
         raw: true,
       });
-      return user;
+      if (user) return user;
+      throw new Error('No User');
     } catch (error) {
       console.error(error);
       throw error;
     }
   };
 
-  getUserByID = async (id: number): Promise<IUser | void> => {
+  getUserByID = async (id: number): Promise<IUser | null> => {
     try {
       const user = await Users.findOne({
         where: {
