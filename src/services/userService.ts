@@ -31,6 +31,10 @@ class UserService {
     }
   };
 
+  // getUsers = (): Promise<IUser[] | null> => {
+  //   return Users.findAll({ raw: true });
+  // };
+
   getUserByEmail = async (email: string): Promise<IUser | null> => {
     try {
       const user = await Users.findOne({
@@ -46,7 +50,7 @@ class UserService {
     }
   };
 
-  getUserByID = async (id: number): Promise<IUser> => {
+  getUserByID = async (id: number): Promise<IUser | void> => {
     try {
       const user = await Users.findOne({
         where: {
@@ -54,7 +58,8 @@ class UserService {
         },
         raw: true,
       });
-      return user;
+      if (user) return user;
+      throw new Error('No User');
     } catch (error) {
       console.error(error);
       throw error;
@@ -101,12 +106,12 @@ class UserService {
           },
           {
             where: {
-              id: user.id,
+              id,
             },
           },
         );
     } catch (error) {
-      console.error(error);
+      console.error(error); // Handles error for .getUserByID() but not for Users.update() promise
       throw error;
     }
   };

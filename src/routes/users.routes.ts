@@ -1,6 +1,7 @@
 import express from 'express';
 
 import authenticateJWT from '../middlewares/authentication';
+import userService from '../services/userService';
 
 import { asyncRoute } from '../utilities/asyncRoute';
 
@@ -11,7 +12,23 @@ router.get(
   '/',
   authenticateJWT,
   (req: express.Request, res: express.Response): void => {
-    res.send('Hello Users!');
+    userService
+      .getUsers()
+      .then(users => {
+        res.json(users);
+      })
+      .catch(err => res.json(err.message));
+  },
+);
+
+router.put(
+  '/:id',
+  authenticateJWT,
+  (req: express.Request, res: express.Response): void => {
+    userService
+      .updateUsername(parseInt(req.params.id, 10), req.body.username)
+      .then(() => res.send(`Username updated to ${req.body.username} !`))
+      .catch(err => res.json(err.message));
   },
 );
 
