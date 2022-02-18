@@ -1,12 +1,15 @@
 import express from 'express';
-import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
+import env from '../config/env-config';
+import userService from '../services/userService';
 
 const router = express.Router();
-dotenv.config();
 
-interface IUser {
+interface ILogin {
   username: string;
-  email: number;
+  email: string;
   password?: string;
 }
 
@@ -17,10 +20,28 @@ router.get('/', (req: express.Request, res: express.Response): void => {
 
 /* POST data to login. */
 router.post('/', (req: express.Request, res: express.Response): void => {
-  const { username, email, password }: IUser = req.body;
-  const env: string = process.env.DB_USERNAME;
-  res.json({ username, email, password, env });
-  // db[0].findAll().then(test => console.log(test));
+  const { email, password }: ILogin = req.body;
+  userService
+    .getUserByEmail(email)
+    .then(user => {
+      if (bcrypt.compareSync(password, user.password)) {
+        const token: string = jwt.sign(
+          {
+            uuid: user.uuid,
+            username: user.username,
+            name: user.name,
+            surname: user.surname,
+            email: user.email,
+            role: user.role,
+          },
+          env.accessTokenSecret,
+        );
+        res.send(token);
+      } else {
+        res.send('Email or Password incorrect\n');
+      }
+    })
+    .catch(err => res.send(err.message));
 });
 
 export { router as loginRouter };

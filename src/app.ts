@@ -5,8 +5,6 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-import userService from './services/userService';
-
 import { jokesRouter } from './routes/jokes.routes';
 import { loginRouter } from './routes/login.routes';
 import { userRouter } from './routes/users.routes';
@@ -14,32 +12,32 @@ import { sequelizeConfig } from './config/seq-config';
 
 sequelizeConfig();
 
-userService.getUsers().then(users => console.log(users));
+// userService.getUsers().then(users => console.log(users));
 
-userService
-  .getUserByEmail('drol.pilif@gmail.com')
-  .then(user => console.log(user));
+// userService
+//   .getUserByEmail('drol.pilif@gmail.com')
+//   .then(user => console.log(user));
 
-userService.getUserByID(25).then(user => console.log(user));
+// userService.getUserByID(25).then(user => console.log(user));
 
-userService
-  .AddNewUser(
-    'xSarahX',
-    'sara123',
-    'Sara',
-    'Ivić',
-    'test10@profico.com',
-    'member',
-  )
-  .then(() => console.log('Added !'))
-  .catch(err => console.log(err));
+// userService
+//   .AddNewUser(
+//     'xSarahX',
+//     'sara123',
+//     'Sara',
+//     'Ivić',
+//     'test10@profico.com',
+//     'member',
+//   )
+//   .then(() => console.log('Added !'))
+//   .catch(err => console.log(err));
 
-userService.updateUsername(23, 'Pilip').then(() => console.log('Updated !'));
+// userService.updateUsername(23, 'Pilip').then(() => console.log('Updated !'));
 
-userService
-  .deleteUser(36)
-  .then(() => console.log('Deleted !'))
-  .catch(err => console.log('Error !'));
+// userService
+//   .deleteUser(36)
+//   .then(() => console.log('Deleted !'))
+//   .catch(err => console.log('Error !'));
 
 const app: express.Application = express();
 
