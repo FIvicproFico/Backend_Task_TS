@@ -11,7 +11,7 @@ const router = express.Router();
 router.get(
   '/',
   authenticateJWT,
-  (req: express.Request, res: express.Response): void => {
+  (_: express.Request, res: express.Response): void => {
     // console.log(`From Middleware: ${JSON.stringify(res.locals.user.role)}`);
     userService
       .getUsersQuery()
@@ -20,6 +20,24 @@ router.get(
       })
       .catch(err => res.json(err.message));
     // console.log(`From Middleware: ${JSON.stringify(res.locals.user.role)}`);
+  },
+);
+
+/* GET user with id. */
+router.get(
+  '/:id',
+  (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const id: number = parseInt(req.params.id, 10);
+    if (id) {
+      res.locals.id = id;
+      next();
+    } else next('route');
+  },
+  (req: express.Request, res: express.Response) => {
+    userService
+      .getUserByID(res.locals.id)
+      .then(user => res.json(user))
+      .catch(err => res.json(err.message));
   },
 );
 
@@ -42,7 +60,7 @@ router.get(
     // eslint-disable-next-line require-await
     async (req: express.Request, res: express.Response): Promise<void> => {
       res.status(500);
-      res.send('Hello world!');
+      res.send('Hello Error!');
     },
   ),
 );
