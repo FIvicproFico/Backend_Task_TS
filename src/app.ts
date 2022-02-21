@@ -12,33 +12,6 @@ import { sequelizeConfig } from './config/seq-config';
 
 sequelizeConfig();
 
-// userService.getUsers().then(users => console.log(users));
-
-// userService
-//   .getUserByEmail('drol.pilif@gmail.com')
-//   .then(user => console.log(user));
-
-// userService.getUserByID(25).then(user => console.log(user));
-
-// userService
-//   .AddNewUser(
-//     'xSarahX',
-//     'sara123',
-//     'Sara',
-//     'Ivić',
-//     'test10@profico.com',
-//     'member',
-//   )
-//   .then(() => console.log('Added !'))
-//   .catch(err => console.log(err));
-
-// userService.updateUsername(23, 'Pilip').then(() => console.log('Updated !'));
-
-// userService
-//   .deleteUser(36)
-//   .then(() => console.log('Deleted !'))
-//   .catch(err => console.log('Error !'));
-
 const app: express.Application = express();
 
 app.use(logger('dev'));

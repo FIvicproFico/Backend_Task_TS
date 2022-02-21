@@ -35,6 +35,7 @@ router.post('/', (req: express.Request, res: express.Response): void => {
             role: user.role,
           },
           env.accessTokenSecret,
+          // { expiresIn: '1m' },
         );
         res.send(token);
       } else {

@@ -12,20 +12,14 @@ router.get(
   '/',
   authenticateJWT,
   (req: express.Request, res: express.Response): void => {
-    console.log(`From Middleware: ${JSON.stringify(res.locals.user.role)}`);
-    // userService
-    //   .getUsers()
-    //   .then(users => {
-    //     res.json(users);
-    //   })
-    //   .catch(err => res.json(err.message));
+    // console.log(`From Middleware: ${JSON.stringify(res.locals.user.role)}`);
     userService
       .getUsersQuery()
       .then(users => {
         res.json(users);
       })
       .catch(err => res.json(err.message));
-    console.log(`From Middleware: ${JSON.stringify(res.locals.user.role)}`);
+    // console.log(`From Middleware: ${JSON.stringify(res.locals.user.role)}`);
   },
 );
 

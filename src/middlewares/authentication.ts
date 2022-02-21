@@ -59,33 +59,3 @@ const authenticateJWT = (
 };
 
 export default authenticateJWT;
-
-// import jwt from 'jsonwebtoken';
-// import userService from '../services/userService';
-// import env from '../config/env-config';
-
-// const authenticateJWT = (
-//   req: express.Request,
-//   res: express.Response,
-//   next: express.NextFunction,
-// ): void => {
-//   const authHeader = req.headers.authorization;
-//   if (authHeader) {
-//     const token = req.headers.authorization.split(' ')[1];
-// jwt.verify(token, env.accessTokenSecret, (err, user) => {
-//   if (err) res.sendStatus(403);
-// userService
-//   .getUserByEmail(user.email)
-//   .then(dbUser => {
-//     if (dbUser) res.locals.user = dbUser;
-//   })
-//   .catch(error => console.log(error));
-//       res.locals.user = user;
-//       next();
-//     });
-//   } else {
-//     res.sendStatus(401); // No Token
-//   }
-// };
-
-// export default authenticateJWT;
