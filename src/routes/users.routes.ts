@@ -1,6 +1,7 @@
 import express from 'express';
 
 import authenticateJWT from '../middlewares/authentication';
+import authorize from '../middlewares/authorization';
 import userService from '../services/userService';
 
 import { asyncRoute } from '../utilities/asyncRoute';
@@ -62,6 +63,7 @@ router.get(
 router.post(
   '/',
   authenticateJWT,
+  authorize,
   (req: express.Request, res: express.Response): void => {
     const { username, password, name, surname, email, role }: IUser = req.body;
     userService
