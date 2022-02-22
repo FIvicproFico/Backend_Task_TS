@@ -1,7 +1,5 @@
-'use strict';
-
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.addColumn('Users', 'surname', {
       type: Sequelize.STRING,
       after: 'password',
@@ -12,8 +10,8 @@ module.exports = {
     });
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.removeColumn('Users', 'surname');
     await queryInterface.removeColumn('Users', 'name');
-  }
+  },
 };

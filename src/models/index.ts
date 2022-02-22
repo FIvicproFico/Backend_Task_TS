@@ -1,7 +1,7 @@
-import { Tests } from './test';
+import { Address } from './address';
 import { Users } from './users';
 
-const models = [Tests, Users];
+const models = [Address, Users];
 
-export { Tests, Users };
+export { Address, Users };
 export default models;

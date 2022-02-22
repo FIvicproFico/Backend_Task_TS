@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { Users } from '../models';
+import { Users, Address } from '../models';
 import { sequelize } from '../config/seq-config';
 
 const saltRounds = 10;
@@ -145,6 +145,22 @@ class UserService {
             id: user.id,
           },
         });
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  getUserAddress = async (id: number): Promise<any> => {
+    try {
+      const address = await Address.findOne({
+        where: {
+          id,
+        },
+        raw: true,
+      });
+      if (address) return address;
+      throw new Error('No Address');
     } catch (error) {
       console.error(error);
       throw error;

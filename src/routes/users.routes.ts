@@ -28,7 +28,7 @@ router.get(
   (_: express.Request, res: express.Response): void => {
     // console.log(`From Middleware: ${JSON.stringify(res.locals.user.role)}`);
     userService
-      .getUsersQuery()
+      .getUsers()
       .then(users => {
         res.json(users);
       })
@@ -56,6 +56,10 @@ router.get(
       .getUserById(res.locals.id)
       .then(user => res.json(user))
       .catch(err => res.json(err.message));
+    userService
+      .getUserAddress(res.locals.id)
+      .then(address => console.log(address))
+      .catch(err => console.error(err));
   },
 );
 

@@ -9,9 +9,14 @@ import {
   Unique,
   AutoIncrement,
   AllowNull,
+  ForeignKey,
 } from 'sequelize-typescript';
 
-@Table
+import { Address } from './address';
+
+@Table({
+  tableName: 'Users',
+})
 export class Users extends Model {
   @PrimaryKey
   @AutoIncrement
@@ -43,6 +48,10 @@ export class Users extends Model {
 
   @Column(DataType.STRING)
   role: string;
+
+  @ForeignKey(() => Address)
+  @Column
+  addressId: number;
 
   @CreatedAt
   createdAt: Date;
