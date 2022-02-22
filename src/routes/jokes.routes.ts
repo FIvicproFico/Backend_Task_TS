@@ -18,13 +18,24 @@ interface IUser {
   updatedAt: Date;
 }
 
+/* GET user specific joke. */
+router.get(
+  '/',
+  authenticate,
+  (req: express.Request, res: express.Response): void => {
+    const { name, surname, email }: IUser = res.locals.user;
+    jokeService
+      .sendNamedRequest(name, surname, email)
+      .then(joke => res.send(joke))
+      .catch(err => res.json(err.message));
+  },
+);
+
 /* GET random joke. */
 router.get(
   '/random',
   authenticate,
   (req: express.Request, res: express.Response): void => {
-    const { name, surname, email }: IUser = res.locals.user;
-    console.log(name, surname, email);
     jokeService
       .sendRequest()
       .then(joke => res.send(joke))

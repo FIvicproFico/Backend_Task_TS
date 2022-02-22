@@ -19,6 +19,8 @@ interface IEnv {
   mailAdress: string;
   appSpecificPassword: string;
 
+  subject: string;
+
   admin: string;
 }
 
@@ -36,6 +38,8 @@ const env: IEnv = {
   mailService: process.env.MAIL_SERVICE,
   mailAdress: process.env.MAIL_ADRESS,
   appSpecificPassword: process.env.APPLICATION_SPECIFIC_PASSWORD,
+
+  subject: process.env.SUBJECT,
 
   admin: process.env.ADMIN,
 };
