@@ -7,10 +7,17 @@ import userService from '../services/userService';
 
 const router = express.Router();
 
-interface ILogin {
+interface IUser {
+  id: number;
+  uuid: string;
   username: string;
+  password: string;
+  name: string;
+  surname: string;
   email: string;
-  password?: string;
+  role: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 /* GET login. */
@@ -20,7 +27,7 @@ router.get('/', (req: express.Request, res: express.Response): void => {
 
 /* POST data to login. */
 router.post('/', (req: express.Request, res: express.Response): void => {
-  const { email, password }: ILogin = req.body;
+  const { email, password }: IUser = req.body;
   userService
     .getUserByEmail(email)
     .then(user => {

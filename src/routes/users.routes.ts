@@ -53,7 +53,7 @@ router.get(
   },
   (req: express.Request, res: express.Response): void => {
     userService
-      .getUserByID(res.locals.id)
+      .getUserById(res.locals.id)
       .then(user => res.json(user))
       .catch(err => res.json(err.message));
   },

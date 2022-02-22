@@ -70,7 +70,7 @@ class UserService {
     }
   };
 
-  getUserByID = async (id: number): Promise<IUser | null> => {
+  getUserById = async (id: number): Promise<IUser | null> => {
     try {
       const user = await Users.findOne({
         where: {
@@ -118,7 +118,7 @@ class UserService {
 
   updateUsername = async (id: number, username: string): Promise<void> => {
     try {
-      const user = await this.getUserByID(id);
+      const user = await this.getUserById(id);
       if (user)
         await Users.update(
           {
@@ -138,7 +138,7 @@ class UserService {
 
   deleteUser = async (id: number): Promise<void> => {
     try {
-      const user = await this.getUserByID(id);
+      const user = await this.getUserById(id);
       if (user)
         await Users.destroy({
           where: {
