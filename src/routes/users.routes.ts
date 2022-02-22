@@ -15,6 +15,7 @@ interface IUser {
   surname: string;
   email: string;
   role: string;
+  addressId: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -54,12 +55,17 @@ router.get(
   (req: express.Request, res: express.Response): void => {
     userService
       .getUserById(res.locals.id)
-      .then(user => res.json(user))
+      .then(user => {
+        res.write(JSON.stringify(user, null, 3));
+        userService
+          .getUserAddressQuery(user.addressId)
+          .then(address => {
+            res.write(JSON.stringify(address, null, 3));
+            res.end();
+          })
+          .catch(err => console.error(err));
+      })
       .catch(err => res.json(err.message));
-    userService
-      .getUserAddress(res.locals.id)
-      .then(address => console.log(address))
-      .catch(err => console.error(err));
   },
 );
 

@@ -16,6 +16,7 @@ interface IUser {
   surname: string;
   email: string;
   role: string;
+  addressId: number;
   createdAt: Date;
   updatedAt: Date;
 }

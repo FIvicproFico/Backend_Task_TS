@@ -16,6 +16,7 @@ interface IUser {
   surname: string;
   email: string;
   role: string;
+  addressId: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -160,6 +161,24 @@ class UserService {
         raw: true,
       });
       if (address) return address;
+      throw new Error('No Address');
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  getUserAddressQuery = async (id: number): Promise<any> => {
+    try {
+      const address = await sequelize.query(
+        `SELECT * FROM Address WHERE Address.id = ${id};`,
+        {
+          model: Address,
+          mapToModel: true,
+          raw: true,
+        },
+      );
+      if (address) return address[0];
       throw new Error('No Address');
     } catch (error) {
       console.error(error);
