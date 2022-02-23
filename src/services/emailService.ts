@@ -19,15 +19,30 @@ const transporter = nodemailer.createTransport({
 });
 
 class EmailService {
-  sendEmail = (mailOptions: IMailOptions): void => {
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(`Email sent: ${info.response}`);
-      }
+  sendEmail = async (mailOptions: IMailOptions): Promise<void> => {
+    const myPromise = new Promise<string>((resolve, reject) => {
+      transporter.sendMail(mailOptions, (error, info) => {
+        resolve(info.response);
+      });
     });
+    try {
+      const info = await myPromise;
+      console.log(info);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   };
+
+  // sendEmail = (mailOptions: IMailOptions): void => {
+  //   transporter.sendMail(mailOptions, (error, info) => {
+  //     if (error) {
+  //       console.log(error);
+  //     } else {
+  //       console.log(`Email sent: ${info.response}`);
+  //     }
+  //   });
+  // };
 }
 
 export default new EmailService();

@@ -61,14 +61,18 @@ class JokeService {
         'http://api.icndb.com/jokes/random',
         { params: { firstName: parsedName, lastName: parsedSurname } },
       );
-      const mailOptions: IMailOptions = {
-        from: env.mailAdress,
-        to: email,
-        subject: env.subject,
-        text: response.data.value.joke,
-      };
-      emailService.sendEmail(mailOptions);
-      if (response.data) return response.data.value.joke;
+      if (response.data) {
+        const mailOptions: IMailOptions = {
+          from: env.mailAdress,
+          to: email,
+          subject: env.subject,
+          text: response.data.value.joke,
+        };
+        // First send email, then return value
+        // await emailService.sendEmail(mailOptions);
+        emailService.sendEmail(mailOptions);
+        return response.data.value.joke;
+      }
       throw new Error('Error with API service');
     } catch (error) {
       console.error(error);
