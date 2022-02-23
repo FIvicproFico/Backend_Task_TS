@@ -23,7 +23,7 @@ interface IUser {
 router.get(
   '/',
   authenticate,
-  (req: express.Request, res: express.Response): void => {
+  (_: express.Request, res: express.Response): void => {
     const { name, surname, email }: IUser = res.locals.user;
     jokeService
       .sendNamedRequest(name, surname, email)
@@ -36,7 +36,7 @@ router.get(
 router.get(
   '/random',
   authenticate,
-  (req: express.Request, res: express.Response): void => {
+  (_: express.Request, res: express.Response): void => {
     jokeService
       .sendRequest()
       .then(joke => res.send(joke))

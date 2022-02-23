@@ -52,16 +52,18 @@ router.get(
       next();
     } else next('route');
   },
-  (req: express.Request, res: express.Response): void => {
+  (_: express.Request, res: express.Response): void => {
     userService
       .getUserById(res.locals.id)
       .then(user => {
-        res.write(JSON.stringify(user, null, 3));
         userService
           .getUserAddressQuery(user.addressId)
           .then(address => {
-            res.write(JSON.stringify(address, null, 3));
-            res.end();
+            const userInfo = {
+              ...user,
+              ...address,
+            };
+            res.json(userInfo);
           })
           .catch(err => console.error(err));
       })
@@ -99,7 +101,7 @@ router.put(
 router.delete(
   '/:id',
   authenticateJWT,
-  (req: express.Request, res: express.Response) => {
+  (req: express.Request, res: express.Response): void => {
     const id: number = parseInt(req.params.id, 10);
     userService
       .deleteUser(id)
@@ -113,7 +115,7 @@ router.get(
   '/error',
   asyncRoute(
     // eslint-disable-next-line require-await
-    async (req: express.Request, res: express.Response): Promise<void> => {
+    async (_: express.Request, res: express.Response): Promise<void> => {
       res.status(500);
       res.send('Hello Error!');
     },

@@ -27,7 +27,8 @@ class JokeService {
       const response = await axios.get<IServerData>(
         'http://api.icndb.com/jokes/random',
       );
-      return response.data.value.joke;
+      if (response.data) return response.data.value.joke;
+      throw new Error('Error with API service');
     } catch (error) {
       console.error(error);
       throw error;
@@ -57,7 +58,8 @@ class JokeService {
 
     try {
       const response = await axios.get<IServerData>(
-        `http://api.icndb.com/jokes/random?firstName=${parsedName}&lastName=${parsedSurname}`,
+        'http://api.icndb.com/jokes/random',
+        { params: { firstName: parsedName, lastName: parsedSurname } },
       );
       const mailOptions: IMailOptions = {
         from: env.mailAdress,
@@ -66,7 +68,8 @@ class JokeService {
         text: response.data.value.joke,
       };
       emailService.sendEmail(mailOptions);
-      return response.data.value.joke;
+      if (response.data) return response.data.value.joke;
+      throw new Error('Error with API service');
     } catch (error) {
       console.error(error);
       throw error;

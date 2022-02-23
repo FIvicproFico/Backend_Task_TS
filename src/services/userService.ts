@@ -21,6 +21,15 @@ interface IUser {
   updatedAt: Date;
 }
 
+interface IAddress {
+  id: number;
+  streetAdress: string;
+  streetNumber: number;
+  zipCode: number;
+  town: string;
+  country: string;
+}
+
 class UserService {
   // : Promise<Array<IUser>>
 
@@ -30,7 +39,8 @@ class UserService {
   getUsers = async (): Promise<IUser[]> => {
     try {
       const users = await Users.findAll({ raw: true });
-      return users;
+      if (users) return users;
+      throw new Error('No Users');
     } catch (error) {
       console.error(error);
       throw error;
@@ -48,7 +58,8 @@ class UserService {
           raw: true,
         },
       );
-      return users;
+      if (users) return users;
+      throw new Error('No Users');
     } catch (error) {
       console.error(error);
       throw error;
@@ -152,11 +163,11 @@ class UserService {
     }
   };
 
-  getUserAddress = async (id: number): Promise<any> => {
+  getUserAddress = async (addressId: number): Promise<IAddress> => {
     try {
       const address = await Address.findOne({
         where: {
-          id,
+          addressId,
         },
         raw: true,
       });
@@ -168,10 +179,10 @@ class UserService {
     }
   };
 
-  getUserAddressQuery = async (id: number): Promise<any> => {
+  getUserAddressQuery = async (addressId: number): Promise<IAddress> => {
     try {
       const address = await sequelize.query(
-        `SELECT * FROM Address WHERE Address.id = ${id};`,
+        `SELECT * FROM Address WHERE Address.id = ${addressId};`,
         {
           model: Address,
           mapToModel: true,

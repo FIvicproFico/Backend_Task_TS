@@ -3,7 +3,7 @@ import express from 'express';
 import env from '../config/env-config';
 
 const authorize = (
-  req: express.Request,
+  _: express.Request,
   res: express.Response,
   next: express.NextFunction,
 ) => {

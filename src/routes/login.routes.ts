@@ -22,7 +22,7 @@ interface IUser {
 }
 
 /* GET login. */
-router.get('/', (req: express.Request, res: express.Response): void => {
+router.get('/', (_: express.Request, res: express.Response): void => {
   res.send('Login!');
 });
 
