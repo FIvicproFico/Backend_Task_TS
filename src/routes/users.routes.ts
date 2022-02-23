@@ -27,20 +27,22 @@ router.get(
   '/',
   authenticateJWT,
   (_: express.Request, res: express.Response): void => {
-    // console.log(`From Middleware: ${JSON.stringify(res.locals.user.role)}`);
+    console.log('This first!');
     userService
       .getUsers()
       .then(users => {
         res.json(users);
+        console.log('And finnaly this!');
       })
       .catch(err => res.json(err.message));
-    // console.log(`From Middleware: ${JSON.stringify(res.locals.user.role)}`);
+    console.log('Than this!');
   },
 );
 
 /* GET user with id. */
 router.get(
   '/:id',
+  authenticateJWT,
   (
     req: express.Request,
     res: express.Response,
@@ -89,6 +91,7 @@ router.post(
 router.put(
   '/:id',
   authenticateJWT,
+  authorize,
   (req: express.Request, res: express.Response): void => {
     userService
       .updateUsername(parseInt(req.params.id, 10), req.body.username)
@@ -101,6 +104,7 @@ router.put(
 router.delete(
   '/:id',
   authenticateJWT,
+  authorize,
   (req: express.Request, res: express.Response): void => {
     const id: number = parseInt(req.params.id, 10);
     userService
