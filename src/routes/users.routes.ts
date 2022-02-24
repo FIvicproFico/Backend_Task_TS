@@ -39,6 +39,16 @@ router.get(
   },
 );
 
+/* Test. */
+router.get(
+  '/test',
+  authenticateJWT,
+  async (_: express.Request, res: express.Response): Promise<void> => {
+    const user = await userService.getUserById(23);
+    res.json(user);
+  },
+);
+
 /* GET user with id. */
 router.get(
   '/:id',
